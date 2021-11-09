@@ -43,3 +43,4 @@ while run:
     pg.display.flip()
 
 pg.quit()
+#확인했습니다_양수민...
