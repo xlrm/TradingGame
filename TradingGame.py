@@ -1,7 +1,7 @@
 import pygame as pg
 import matplotlib.pyplot as plt
 import numpy as np
-import button, sys
+import button, sys, stock
 
 pg.init()
 WHITE= (255,255,255)
