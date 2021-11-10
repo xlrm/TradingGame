@@ -5,9 +5,20 @@ import button, sys
 
 pg.init()
 WHITE= (255,255,255)
+BLACK=(0,0,0)
 size  = [1500,800]
 screen= pg.display.set_mode(size)
 clock = pg.time.Clock()
+
+#text 생성해서 화면에 표시하는 함수
+def Writetext(text,fontsize,x,y):        #문자열,폰트크기,생성할 위치
+    if str(text).isdigit()==True:
+        text=str(text)
+    site=(x,y)                         
+    font=pg.font.SysFont(None,fontsize)
+    text=font.render(text,True, BLACK)
+    screen.blit(text,site)
+    return None
 
 pg.display.set_caption("주식 게임")
 
