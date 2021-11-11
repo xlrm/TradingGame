@@ -34,7 +34,7 @@ cancelbutton_img = pg.image.load('image\취소버튼.png')
 
 start_button = button.Button(650, 500, startbutton_img, 0.5)
 howto_button = button.Button(650, 600, howtobutton_img, 0.5)
-cancle_button = button.Button(650, 500, cancelbutton_img, 0.5) #좌표 수정 필요
+cancel_button = button.Button(650, 500, cancelbutton_img, 0.5) #좌표 수정 필요
 
 #game 화면 실행 변수들
 main_menu = True
