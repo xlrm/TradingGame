@@ -1,13 +1,14 @@
-#import pygame as py
-#import button
+import pygame as py
+import trade, button
+
 class Trade():
     hold=0                                         #주식 보유량
     def __init__(self, stockname, pricelist):     #주식 이름, 주식의 현재 값
         self.name = stockname
         self.price = pricelist[-1]
         self.dic = {"stockname":self.name,
-                    "pre_price":self.price,
-                    self.name+" stockhold": Trade.hold}       #주식 딕셔너리 생성.{이름, 현재 주식의 값, (주식이름) 주식보유량}
+                    "cur_price":self.price,
+                    "stockhold": Trade.hold}       #주식 딕셔너리 생성.{이름, 현재 주식의 값, (주식이름) 주식보유량}
 
 
 #살 개수와 유저의 돈을 넣으면 출력
