@@ -17,20 +17,27 @@ def Writetext(text,fontsize,x,y):        #문자열,폰트크기,생성할 위�
         text=str(text)
     site=(x,y)                         
     font=pg.font.SysFont("malgungothic",fontsize)
-    text=font.render(text,True, BLACK)
+    text=font.render(text,True, WHITE)
     screen.blit(text,site)
     return None
+
+def imgdraw(img,w,h,x,y,scale):
+    pg.transform.scale(img,(w*scale,h*scale))
+    screen.blit(img,[x,y])
 
 pg.display.set_caption("주식 게임")
 
 mainmenu_img = pg.image.load('image\메인화면.png')
 howtomenu_img= pg.image.load('image\게임설명.png')
-
+gamebg_img=pg.image.load('image\게임화면.png')
 entervolume_img = pg.image.load('image\개수입력.png')
 
 startbutton_img = pg.image.load('image\게임시작버튼.png')
 howtobutton_img = pg.image.load('image\게임방법버튼.png')
 cancelbutton_img = pg.image.load('image\취소버튼.png')
+
+seedicon_img = pg.image.load('image\시드머니아이콘.png')
+goal_img=pg.image.load('image\목표자산.png')
 
 start_button = button.Button(650, 500, startbutton_img, 0.5)
 howto_button = button.Button(650, 600, howtobutton_img, 0.5)
@@ -49,7 +56,10 @@ seed=0    #초기 금액
 while run:
     clock.tick(60)
 
+    screen.fill(WHITE)
     if main_menu == True:
+        imgdraw(mainmenu_img,1500,800,0,0,1)
+    
         if start_button.draw(screen) == True:
             print('GAME START')
             main_menu = False
@@ -62,18 +72,26 @@ while run:
             
     
     if howto_menu == True:
-        screen.blit(howtomenu_img,(100,100))
-        pg.display.flip()
-        start_button = button.Button(1200, 600, startbutton_img, 0.5)
+        imgdraw(howtomenu_img,1500,800,0,0,1)
+        start_button = button.Button(1200, 620, startbutton_img, 0.5)
+        
         if start_button.draw(screen) == True:
             print('GAME START')
             howto_menu = False
             game_menu = True
             
+    if game_menu == True:
+        imgdraw(gamebg_img,1500,800,0,0,1)
+
+        imgdraw(seedicon_img,150,200,5,60,0.5)
+        Writetext(seed,50,200,80)      
+
+        imgdraw(goal_img,150,200,1025,60,1)
+        Writetext(goal,50,1245,80)      
 
     for event in pg.event.get():
         if event.type == pg.QUIT:
-            run = False
+            run = False 
  
     pg.display.flip()
 
