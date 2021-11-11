@@ -19,7 +19,6 @@ def Writetext(text,fontsize,x,y):        #문자열,폰트크기,생성할 위�
     font=pg.font.SysFont("malgungothic",fontsize)
     text=font.render(text,True, BLACK)
     screen.blit(text,site)
-    return None
 
 pg.display.set_caption("주식 게임")
 
