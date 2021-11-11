@@ -19,7 +19,6 @@ def Writetext(text,fontsize,x,y):        #문자열,폰트크기,생성할 위�
     font=pg.font.SysFont("malgungothic",fontsize)
     text=font.render(text,True, WHITE)
     screen.blit(text,site)
-    return None
 
 def imgdraw(img,w,h,x,y,scale):
     pg.transform.scale(img,(w*scale,h*scale))
@@ -41,7 +40,7 @@ goal_img=pg.image.load('image\목표자산.png')
 
 start_button = button.Button(650, 500, startbutton_img, 0.5)
 howto_button = button.Button(650, 600, howtobutton_img, 0.5)
-cancle_button = button.Button(650, 500, cancelbutton_img, 0.5) #좌표 수정 필요
+cancel_button = button.Button(650, 500, cancelbutton_img, 0.5) #좌표 수정 필요
 
 #game 화면 실행 변수들
 main_menu = True
