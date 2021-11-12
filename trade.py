@@ -41,5 +41,5 @@ class Trade():
         return self.dic
 
 #플레이어 주식 보유량 반환
-    def returnhold():
+    def returnhold(self):
         return Trade.hold

@@ -31,7 +31,7 @@ class Stock():
         if self.price <= 0:
             self.price = 0
         self.prices.append(self.price)
-        return self.price
+        return int(self.price)
 def test(stock):
     for i in range(40):
         stock.fluctuation()
