@@ -17,10 +17,10 @@ class Button():
             if pg.mouse.get_pressed()[0] == 1 and self.clicked == False:
                 self.clicked = True
                 action = True
-                
+
         if pg.mouse.get_pressed()[0] == 0:
-            self.cliked = False
-        
+            self.clicked = False
+
         surface.blit(self.image, (self.rect.x, self.rect.y))
-        
+
         return action

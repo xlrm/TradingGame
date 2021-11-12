@@ -1,6 +1,3 @@
-import pygame as py
-#import trade, button
-
 class Trade():
     hold=0                                         #주식 보유량
     def __init__(self, stockname, price):     #주식 이름, 주식의 현재 값

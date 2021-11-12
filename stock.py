@@ -1,20 +1,4 @@
 import numpy as np
-import matplotlib.pyplot as plt
-
-date = [1]
-nowdate = 1
-
-def append():
-    date.append(nowdate)
-def plusdate():
-    global nowdate
-    nowdate += 1
-def nextday():
-    plusdate()
-    append()
-def drawgraph(stock):
-    plt.plot((date), (stock.prices))
-    plt.show()
 
 class Stock():
     def __init__(self, issue):
@@ -32,9 +16,3 @@ class Stock():
             self.price = 0
         self.prices.append(self.price)
         return int(self.price)
-def test(stock):
-    for i in range(40):
-        stock.fluctuation()
-    for i in range(40):
-        nextday()
-    drawgraph(stock)
