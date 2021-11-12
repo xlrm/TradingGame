@@ -35,8 +35,8 @@ hundred_img = pg.image.load('image/button/100주.png')
 decidebuy_img = pg.image.load('image/button/매수결정.png')
 buy_img = pg.image.load('image/button/매수버튼.png')
 tradeall_img = pg.image.load('image/button/전체수량.png')
-playagain_img = pg.image.load('image/button/다시하기1.png')
-exitgame_img = pg.image.load('image/button/게임종료1.png')
+playagain_img = pg.image.load('image/button/다시하기.png')
+exitgame_img = pg.image.load('image/button/게임종료.png')
 
 seedicon_img = pg.image.load('image/etc/시드머니아이콘.png')
 goal_img = pg.image.load('image/etc/목표자산.png')
@@ -560,7 +560,7 @@ while run:
         sell_menu2 = False
         sell_menu3 = False
         gameclear_menu = True
-        if gameclear_menu:
+        if gameclear_menu == True:
             imgdraw(gameclear_img, 1500, 800, 0, 0, 1)
             Writetext((str(int(seed)) + '원'), 60, BLACK, 700, 385)
             if playagain_button.draw(screen) == True:
@@ -616,7 +616,8 @@ while run:
         sell_menu1 = False
         sell_menu2 = False
         sell_menu3 = False
-        if gameover_menu:
+        gameover_menu = True
+        if gameover_menu == True:
             imgdraw(gameover_img, 1500, 800, 0, 0, 1)
             if playagain_button.draw(screen) == True:
                 print('play again')
