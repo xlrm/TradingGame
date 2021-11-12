@@ -17,10 +17,12 @@ def Writetext(text,fontsize,color,x,y):        #문자열,폰트크기,생성할
         text=str(text)
     site=(x,y)                         
     font=pg.font.SysFont("malgungothic",fontsize)
-    text=font.render(text,True, BLACK)
     text=font.render(text,True, color)
     screen.blit(text,site)
-    return None
+
+def imgdraw(img,w,h,x,y,scale):
+    pg.transform.scale(img,(w*scale,h*scale))
+    screen.blit(img,[x,y])
 
 def showinfo(hold):                          #메뉴 클릭시 정보 보여주는 창
     imgdraw(show_img,830,570,600,200,1)      #나중에 주식 보유량 넣어주시면 됩니다
@@ -40,6 +42,7 @@ howtobutton_img = pg.image.load('image\게임방법버튼.png')
 cancelbutton_img = pg.image.load('image\취소버튼.png')
 
     #여기 이후로 제가 만든 이미지변수 이름들입니다. 바꿔야하는 변수이름이 있다면 고치겠습니다.. 말씀해주세요...
+gamebg_img=pg.image.load('image\게임화면.png')
 seedicon_img = pg.image.load('image\시드머니아이콘.png')
 goal_img=pg.image.load('image\목표자산.png')
 
@@ -59,7 +62,6 @@ nextday_img=pg.image.load('image\다음날로.png')
 holdstock_img=pg.image.load('image\주식보유량.png')
 
 showsell_img = pg.image.load('image\매수창.png')
-userinput_img = pg.image.load('image\개수입력.png')
 sellten_img = pg.image.load('image\\10주매수.png')
 sellthrteen_img = pg.image.load('image\\30주매수.png')
 sellfivteen_img = pg.image.load('image\\50주매수.png')
@@ -67,10 +69,9 @@ sellhund_img = pg.image.load('image\\100주매수.png')
 decidesell_img = pg.image.load('image\매수결정.png')
 
 #버튼
-
 start_button = button.Button(650, 500, startbutton_img, 0.5)
 howto_button = button.Button(650, 600, howtobutton_img, 0.5)
-cancle_button = button.Button(650, 500, cancelbutton_img, 0.5) #좌표 수정 필요
+#cancel_button = button.Button(650, 500, cancelbutton_img, 0.5) #좌표 수정 필요
 
 #game 화면 실행 변수들
 main_menu = True
@@ -114,8 +115,6 @@ while run:
             game_menu = True
             
     if game_menu == True:
-
-    if game_menu == True:
 # 초기 설정
         imgdraw(gamebg_img,1500,800,0,0,1)
         imgdraw(seedicon_img,150,200,5,60,0.5)
@@ -134,7 +133,7 @@ while run:
         buy_button = button.Button(1125,440,buy_img,1)
         decide_button = button.Button(350,600,decidesell_img,0.7)
         
-        userinp_button = button.Button(400,200,userinput_img,1.2)
+        entervolume_button = button.Button(400,200,entervolume_img,1.2)
         sellten_button = button.Button(320,400,sellten_img,1)
         sellthr_button = button.Button(540,400,sellthrteen_img,1)
         sellfiv_button = button.Button(760,400,sellfivteen_img,1)
@@ -215,7 +214,7 @@ while run:
             if sellhund_button.draw(screen)==True:
                 print("sell 100")
             
-            if userinp_button.draw(screen)==True:
+            if entervolume_button.draw(screen)==True:
                 print("user input")
             
             if cancel_button.draw(screen)==True:
