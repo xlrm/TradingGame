@@ -3,9 +3,10 @@ import pygame as py
 
 class Trade():
     hold=0                                         #주식 보유량
-    def __init__(self, stockname, pricelist):     #주식 이름, 주식의 현재 값
+    def __init__(self, stockname, price):     #주식 이름, 주식의 현재 값
         self.name = stockname
-        self.price = pricelist[-1]
+        #self.pricelist=pricelist
+        self.price = price
         self.dic = {"stockname":self.name,
                     "cur_price":self.price,
                     "stockhold": Trade.hold}       #주식 딕셔너리 생성.{이름, 현재 주식의 값, (주식이름) 주식보유량}
