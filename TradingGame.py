@@ -36,7 +36,7 @@ howtobutton_img = pg.image.load('image\게임방법버튼.png')
 cancelbutton_img = pg.image.load('image\취소버튼.png')
 
 seedicon_img = pg.image.load('image\시드머니아이콘.png')
-goal_img=pg.image.load('image\목표자산.png')
+goal_img = pg.image.load('image\목표자산.png')
 
 start_button = button.Button(650, 500, startbutton_img, 0.5)
 howto_button = button.Button(650, 600, howtobutton_img, 0.5)
@@ -62,12 +62,12 @@ while run:
         if start_button.draw(screen) == True:
             print('GAME START')
             main_menu = False
-            game_menu=True
+            game_menu = True
 
         if howto_button.draw(screen) == True:
             print('HOW TO PLAY THE GAME')
             main_menu = False
-            howto_menu=True
+            howto_menu = True
             
     
     if howto_menu == True:
@@ -83,10 +83,10 @@ while run:
         imgdraw(gamebg_img,1500,800,0,0,1)
 
         imgdraw(seedicon_img,150,200,5,60,0.5)
-        Writetext(seed,50,200,80)      
+        Writetext(seed,50,200,70)      
 
         imgdraw(goal_img,150,200,1025,60,1)
-        Writetext(goal,50,1245,80)      
+        Writetext(goal,50,1245,70)      
 
     for event in pg.event.get():
         if event.type == pg.QUIT:

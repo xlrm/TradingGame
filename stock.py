@@ -22,7 +22,19 @@ class Stock():
         self.price = issue
         self.prices = [issue]
     def fluctuation(self):
-        coeff = np.random.randn()
-        self.price += self.price * coeff
+        coeff = np.random.rand()
+        sign = np.random.randint(2)
+        if sign == 0:
+            self.price += self.price * coeff
+        elif sign == 1:
+            self.price -= self.price * coeff * (1 / 2)
+        if self.price <= 0:
+            self.price = 0
         self.prices.append(self.price)
         return self.price
+def test(stock):
+    for i in range(40):
+        stock.fluctuation()
+    for i in range(40):
+        nextday()
+    drawgraph(stock)

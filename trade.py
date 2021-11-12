@@ -1,5 +1,5 @@
 import pygame as py
-import trade, button
+#import trade, button
 
 class Trade():
     hold=0                                         #주식 보유량
