@@ -23,7 +23,8 @@ main_sound=pg.mixer.Sound("sound/메인메뉴효과음.mp3")
 menu_sound=pg.mixer.Sound("sound/메뉴클릭효과음.mp3")
 fail_sound=pg.mixer.Sound("sound/매수매매실패효과음.mp3")
 succese_sound=pg.mixer.Sound("sound/매수매매성공효과음.mp3")
-
+gameclear_sound=pg.mixer.Sound("sound/게임승리효과음.mp3")
+gameover_sound=pg.mixer.Sound("sound/게임실패효과음.mp3")
 
 # 이미지
 mainmenu_img = pg.image.load('image/screen/메인화면.png')
@@ -128,7 +129,6 @@ sellvolume3 = 0
 
 # 함수
 
-
 def Writetext(text, fontsize, color, x, y):
     if str(text).isdigit() == True:
         text = str(text)
@@ -137,11 +137,9 @@ def Writetext(text, fontsize, color, x, y):
     text = font.render(text, True, color)
     screen.blit(text, site)
 
-
 def imgdraw(img, w, h, x, y, scale):
     img = pg.transform.scale(img, (w*scale, h*scale))
     screen.blit(img, [x, y])
-
 
 def showinfo(stock, hold):
     updownrate = str(
@@ -184,65 +182,44 @@ def savegraph(stock):
     plt.savefig('image/figures/figure.png')
 
 
-def menuclick():
+def menuclick(stock):
     global stockimg
     plt.cla()
-    savegraph(stock1)
+    savegraph(stock)
     stockimg = pg.image.load('image/figures/figure.png')
-    return True
 
 
-def showbuy(buyvolume):
-    global cancel_button
-    imgdraw(showbuy_img, 900, 600, 300, 100, 1)
-    imgdraw(tradevolume_img, 575, 115, 480, 200, 1)
-    Writetext(buyvolume, 50, WHITE, 570, 220)
-    cancel_button = button.Button(850, 600, cancelbutton_img, 0.7)
-
-def showsell(sellvolume):
+def showtrade(volume):
     global game_menu, cancel_button
     game_menu = False
     imgdraw(showbuy_img, 900, 600, 300, 100, 1)
     imgdraw(tradevolume_img, 575, 115, 480, 200, 1)
-    Writetext(sellvolume, 50, WHITE, 570, 220)
+    Writetext(volume, 50, WHITE, 570, 220)
     cancel_button = button.Button(850, 600, cancelbutton_img, 0.7)
 
-
-def howmuchbuy(buyvolume):
+def howmuch(volume):
     if sellten_button.draw(screen) == True:
-        print("buy1 10")
+        print("+10")
         menu_sound.play(0)
-        buyvolume += 10
+        volume += 10
     if sellthr_button.draw(screen) == True:
-        print("buy1 30")
+        print("+30")
         menu_sound.play(0)
-        buyvolume += 30
+        volume += 30
     if sellfif_button.draw(screen) == True:
-        print("buy1 50")
+        print("+50")
         menu_sound.play(0)
-        buyvolume += 50
+        volume += 50
     if sellhund_button.draw(screen) == True:
-        print("buy1 100")
+        print("+100")
         menu_sound.play(0)
-        buyvolume += 100
-    return buyvolume
+        volume += 100
+    return volume
 
 def howmuchsell(sellvolume, hold):
-    if sellten_button.draw(screen) == True:
-        print("sell1 10")
-        sellvolume += 10
-    if sellthr_button.draw(screen) == True:
-        print("sell1 30")
-        sellvolume += 30
-    if sellfif_button.draw(screen) == True:
-        print("sell1 50")
-        sellvolume += 50
-    if sellhund_button.draw(screen) == True:
-        print("sell1 100")
-        sellvolume += 100
+    sellvolume = howmuch(sellvolume)
     if tradeall_button.draw(screen) == True:
         sellvolume = hold
-
     return sellvolume
 
 def buydecide(price,buyvolume,hold):
@@ -288,10 +265,8 @@ def selldecide(price,sellvolume,hold):
             succese_sound.play(0)
             sellvolume = 0
             Writetext(str(int(seed)), 50, WHITE, 200, 70)
-            print("시드 표시;",seed)
 
     return [sellvolume, hold] 
-
 
 
 # 게임 시작 전 주식을 10번 fluctuation함으로써 그래프를 만드는 작업.
@@ -357,9 +332,10 @@ while run:
         if stock1_button.draw(screen) == True:
             menu_sound.play(0)                
             print("stock1")
+            menuclick(stock1)
             stock2_menu = False
             stock3_menu = False
-            stock_menu1 = menuclick()
+            stock_menu1 = True
 
         if stock_menu1 == True:
             showinfo(stock1, hold1)
@@ -387,9 +363,10 @@ while run:
         if stock2_button.draw(screen) == True:
             menu_sound.play(0)
             print("stock2")
+            menuclick(stock1)
             stock_menu1 = False
             stock_menu3 = False
-            stock_menu2 = menuclick()
+            stock_menu2 = stock2
 
         if stock_menu2 == True:
             showinfo(stock2, hold2)
@@ -416,9 +393,10 @@ while run:
         if stock3_button.draw(screen) == True:
             menu_sound.play(0)        
             print("stock3")
+            menuclick()
             stock_menu1 = False
             stock_menu2 = False
-            stock_menu3 = menuclick()
+            stock_menu3 = stock3
 
         if stock_menu3 == True:
             showinfo(stock3, hold3)
@@ -442,8 +420,8 @@ while run:
 
 # 주식1 매수창
     if buy_menu1 == True:
-        showbuy(buyvolume1)
-        buyvolume1 = howmuchbuy(buyvolume1)
+        showtrade(buyvolume1)
+        buyvolume1 = howmuch(buyvolume1)
         l=buydecide(stock1.price,buyvolume1,hold1)
         buyvolume1=l[0]
         hold1=l[1]
@@ -456,8 +434,8 @@ while run:
 
 # 주식2 매수창
     if buy_menu2 == True:
-        showbuy(buyvolume2)
-        buyvolume2 = howmuchbuy(buyvolume2)
+        showtrade(buyvolume2)
+        buyvolume2 = howmuch(buyvolume2)
         l=buydecide(stock2.price,buyvolume2,hold2)
         buyvolume2=l[0]
         hold2=l[1]
@@ -470,8 +448,8 @@ while run:
 
 # 주식3 매수창
     if buy_menu3 == True:
-        showbuy(buyvolume3)
-        buyvolume3 = howmuchbuy(buyvolume3)
+        showtrade(buyvolume3)
+        buyvolume3 = howmuch(buyvolume3)
         l=buydecide(stock3.price,buyvolume3,hold3)
         buyvolume3=l[0]
         hold3=l[1]
@@ -484,7 +462,7 @@ while run:
 
 # 주식1 매도창
     if sell_menu1 == True:
-        showsell(sellvolume1)
+        showtrade(sellvolume1)
         sellvolume1 = howmuchsell(sellvolume1, hold1)
         l=selldecide(stock1.price,sellvolume1,hold1)
         sellvolume1=l[0]
@@ -498,7 +476,7 @@ while run:
 
 # 주식2 매도창
     if sell_menu2 == True:
-        showsell(sellvolume2)
+        showtrade(sellvolume2)
         sellvolume2 = howmuchsell(sellvolume2, hold2)
         l=selldecide(stock2.price,sellvolume2,hold2)
         sellvolume2=l[0]
@@ -511,7 +489,7 @@ while run:
 
 # 주식3 매도창
     if sell_menu3 == True:
-        showsell(sellvolume3)
+        showtrade(sellvolume3)
         sellvolume3 = howmuchsell(sellvolume3, hold3)
         l=selldecide(stock3.price,sellvolume3,hold3)
         sellvolume3=l[0]
@@ -538,6 +516,7 @@ while run:
         sell_menu3 = False
         gameclear_menu = True
         if gameclear_menu == True:
+            gameclear_sound.play(0)
             imgdraw(gameclear_img, 1500, 800, 0, 0, 1)
             Writetext((str(int(seed)) + '원'), 60, BLACK, 700, 385)
             if playagain_button.draw(screen) == True:
@@ -596,6 +575,7 @@ while run:
         gameover_menu = True
         if gameover_menu == True:
             imgdraw(gameover_img, 1500, 800, 0, 0, 1)
+            gameover_sound.play(0)
             if playagain_button.draw(screen) == True:
                 print('play again')
                 seed = 1000000
