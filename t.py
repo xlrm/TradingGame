@@ -13,7 +13,6 @@ BLACK = (0, 0, 0)
 size = [1500, 800]
 screen = pg.display.set_mode(size)
 clock = pg.time.Clock()
-
 pg.display.set_caption("주식 게임")
 
 #사운드
@@ -22,7 +21,7 @@ bgm=pg.mixer.Sound("sound/bensound-ukulele.mp3")
 main_sound=pg.mixer.Sound("sound/메인메뉴효과음.mp3")
 menu_sound=pg.mixer.Sound("sound/메뉴클릭효과음.mp3")
 fail_sound=pg.mixer.Sound("sound/매수매매실패효과음.mp3")
-succese_sound=pg.mixer.Sound("sound/매수매매성공효과음.mp3")
+success_sound=pg.mixer.Sound("sound/매수매매성공효과음.mp3")
 gameclear_sound=pg.mixer.Sound("sound/게임승리효과음.mp3")
 gameover_sound=pg.mixer.Sound("sound/게임실패효과음.mp3")
 
@@ -60,6 +59,15 @@ stock3_img = pg.image.load('image/etc/주식3.png')
 holdstock_img = pg.image.load('image/etc/주식보유량.png')
 tradevolume_img = pg.image.load('image/etc/거래량.png')
 
+#추가 이미지
+sellalarm1_img=pg.image.load('image/etc/매도량알람1.png')
+buyalarm1_img=pg.image.load('image/etc/매수량알람1.png')
+sellalarm2_img=pg.image.load('image/etc/매도량알람2.png')
+buyalarm2_img=pg.image.load('image/etc/매수량알람2.png')
+sellalarm1_img=pg.image.load('image/etc/매도량알람2.png')
+successalarm_img=pg.image.load('image/etc/거래성공알람.png')
+
+
 # 버튼
 start_button = button.Button(650, 500, startbutton_img, 0.5)
 howto_button = button.Button(650, 600, howtobutton_img, 0.5)
@@ -70,13 +78,13 @@ stock3_button = button.Button(80, 620, stock3_img, 1)
 nextday_button = button.Button(1100, 650, nextday_img, 1)
 sell_button = button.Button(1125, 570, sell_img, 1)
 buy_button = button.Button(1125, 440, buy_img, 1)
-decide_button = button.Button(350, 600, decidebuy_img, 0.7)
+decide_button = button.Button(350, 600-130, decidebuy_img, 0.7-0.2)
 
-sellten_button = button.Button(320, 350, ten_img, 1)
-sellthr_button = button.Button(540, 350, thirty_img, 1)
-sellfif_button = button.Button(760, 350, fifty_img, 1)
-sellhund_button = button.Button(980, 350, hundred_img, 1)
-tradeall_button = button.Button(650, 470, tradeall_img, 1)
+sellten_button = button.Button(320, 350-130, ten_img, 1)
+sellthr_button = button.Button(540, 350-130, thirty_img, 1)
+sellfif_button = button.Button(760, 350-130, fifty_img, 1)
+sellhund_button = button.Button(980, 350-130, hundred_img, 1)
+tradeall_button = button.Button(650, 470-130, tradeall_img, 1)
 
 playagain_button = button.Button(400, 550, playagain_img, 1)
 exitgame_button = button.Button(900, 550, exitgame_img, 1)
@@ -181,21 +189,21 @@ def savegraph(stock):
     plt.plot((date), (stock.prices))
     plt.savefig('image/figures/figure.png')
 
-
+#주식창 열때 설정
 def menuclick(stock):
     global stockimg
     plt.cla()
     savegraph(stock)
     stockimg = pg.image.load('image/figures/figure.png')
 
-
+#주식 사거나 팔때 창 설정
 def showtrade(volume):
     global game_menu, cancel_button
     game_menu = False
-    imgdraw(showbuy_img, 900, 600, 300, 100, 1)
-    imgdraw(tradevolume_img, 575, 115, 480, 200, 1)
-    Writetext(volume, 50, WHITE, 570, 220)
-    cancel_button = button.Button(850, 600, cancelbutton_img, 0.7)
+    imgdraw(showbuy_img, 900, 600-100, 300, 200-150, 1)
+    imgdraw(tradevolume_img, 575, 115, 480, 200-130, 1)
+    Writetext(volume, 50, WHITE, 570, 220-130)
+    cancel_button = button.Button(850+60, 600-130, cancelbutton_img, 0.7-0.2)
 
 def howmuch(volume):
     if sellten_button.draw(screen) == True:
@@ -227,45 +235,45 @@ def buydecide(price,buyvolume,hold):
     game_menu=False
     if decide_button.draw(screen) == True:
         if seed <= price * buyvolume:
-            Writetext(('돈이 부족합니다.'), 50, WHITE, 570, 500)
+            buyvolume = 0        
+            imgdraw(buyalarm1_img, 400, 150, 480, 600, 1)
             fail_sound.play(0)
-            buyvolume = 0
-        
+
         elif buyvolume == 0:
-            Writetext(('매수량이 0입니다.'), 50, WHITE, 570, 500)
+            imgdraw(buyalarm2_img, 400, 150, 480, 600, 1)
             fail_sound.play(0)
         
         else:
             seed -= price * buyvolume
             hold += buyvolume
-            Writetext(('거래 완료'), 50, WHITE, 570, 500)
-            succese_sound.play(0)
-            buyvolume = 0          
+            imgdraw(successalarm_img, 400, 150, 480, 600, 1)
+            success_sound.play(0)
             Writetext(str(int(seed)), 50, WHITE, 200, 70)
+        buyvolume=0
     
     return [buyvolume, hold]
 
 def selldecide(price,sellvolume,hold):
-    global game_menu,seed
+    global game_menu,seed,sell_menu1
+    t=0
     game_menu = False
     if decide_button.draw(screen) == True:
-        if hold < sellvolume:
-            Writetext(('주식 보유량이 부족합니다.'), 50, WHITE, 570, 220)
+        if hold < sellvolume:            
+            imgdraw(sellalarm1_img, 400, 150, 480, 600, 1)
             fail_sound.play(0)
-            sellvolume = 0
             
         elif sellvolume == 0:
-            Writetext(('매도량이 0입니다.'), 50, WHITE, 570, 220)
             fail_sound.play(0)
+            imgdraw(sellalarm2_img, 400, 150, 480, 600, 1)
         
         else:
             seed += price * sellvolume
             hold -= sellvolume
-            Writetext(('거래 완료'), 50, WHITE, 570, 220)
-            succese_sound.play(0)
-            sellvolume = 0
+            imgdraw(successalarm_img, 400, 150, 480, 600, 1)
+            success_sound.play(0)
             Writetext(str(int(seed)), 50, WHITE, 200, 70)
-
+        sellvolume = 0
+    
     return [sellvolume, hold] 
 
 
@@ -328,6 +336,7 @@ while run:
             print('NEXT DAY')
             menu_sound.play(0)
             nextday()
+
 # 메뉴 1 클릭
         if stock1_button.draw(screen) == True:
             menu_sound.play(0)                
