@@ -1,3 +1,5 @@
+# 사운드 출처 : https://soundeffect-lab.info/sound/button/
+
 import pygame as pg
 import matplotlib.pyplot as plt
 import numpy as np
