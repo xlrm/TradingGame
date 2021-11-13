@@ -25,39 +25,36 @@ success_sound=pg.mixer.Sound("sound/매수매매성공효과음.mp3")
 gameclear_sound=pg.mixer.Sound("sound/게임승리효과음.mp3")
 gameover_sound=pg.mixer.Sound("sound/게임실패효과음.mp3")
 
-# 이미지
-mainmenu_img = pg.image.load('image/screen/메인화면.png')
-howtomenu_img = pg.image.load('image/screen/게임설명.png')
-gamebg_img = pg.image.load('image/screen/게임화면.png')
-showbuy_img = pg.image.load('image/screen/매수창.png')
-show_img = pg.image.load('image/screen/창.png')
-stockbox_img = pg.image.load('image/screen/주식박스.png')
+# 이미지 #해결된 거 옆에 주석처리^^
+mainmenu_img = pg.image.load('image/screen/메인화면.png') #
+howtomenu_img = pg.image.load('image/screen/게임설명.png') #추후 수정
+gamebg_img = pg.image.load('image/screen/게임화면.png') #
+showbuy_img = pg.image.load('image/screen/매수창.png')#
 gameclear_img = pg.image.load('image/screen/게임승리.png')
 gameover_img = pg.image.load('image/screen/게임오버.png')
 
 startbutton_img = pg.image.load('image/button/게임시작버튼.png')
 howtobutton_img = pg.image.load('image/button/게임방법버튼.png')
-cancelbutton_img = pg.image.load('image/button/취소버튼.png')
-sell_img = pg.image.load('image/button/매도버튼.png')
-nextday_img = pg.image.load('image/button/다음날로.png')
+cancelbutton_img = pg.image.load('image/button/취소버튼.png')#
+sell_img = pg.image.load('image/button/매도버튼.png')#
+nextday_img = pg.image.load('image/button/다음날로.png')#
 ten_img = pg.image.load('image/button/10주.png')
 thirty_img = pg.image.load('image/button/30주.png')
 fifty_img = pg.image.load('image/button/50주.png')
 hundred_img = pg.image.load('image/button/100주.png')
-decidebuy_img = pg.image.load('image/button/매수결정.png')
-buy_img = pg.image.load('image/button/매수버튼.png')
-tradeall_img = pg.image.load('image/button/전체수량.png')
+decidebuy_img = pg.image.load('image/button/매수결정.png')#
+buy_img = pg.image.load('image/button/매수버튼.png')#
+tradeall_img = pg.image.load('image/button/전체수량.png')#
 playagain_img = pg.image.load('image/button/다시하기.png')
 exitgame_img = pg.image.load('image/button/게임종료.png')
 
-seedicon_img = pg.image.load('image/etc/시드머니아이콘.png')
-goal_img = pg.image.load('image/etc/목표자산.png')
-seedicon_img = pg.image.load('image/etc/시드머니아이콘.png')
-stock1_img = pg.image.load('image/etc/주식1.png')
-stock2_img = pg.image.load('image/etc/주식2.png')
-stock3_img = pg.image.load('image/etc/주식3.png')
-holdstock_img = pg.image.load('image/etc/주식보유량.png')
-tradevolume_img = pg.image.load('image/etc/거래량.png')
+seedicon_img = pg.image.load('image/etc/시드머니아이콘.png')#
+goal_img = pg.image.load('image/etc/목표자산.png')#
+stock1_img = pg.image.load('image/etc/주식1.png')#
+stock2_img = pg.image.load('image/etc/주식2.png')#
+stock3_img = pg.image.load('image/etc/주식3.png')#
+holdstock_img = pg.image.load('image/etc/주식보유량.png')#
+tradevolume_img = pg.image.load('image/etc/거래량.png')#
 
 #추가 이미지
 sellalarm1_img=pg.image.load('image/etc/매도량알람1.png')
@@ -69,25 +66,25 @@ successalarm_img=pg.image.load('image/etc/거래성공알람.png')
 
 
 # 버튼
-start_button = button.Button(650, 500, startbutton_img, 0.5)
-howto_button = button.Button(650, 600, howtobutton_img, 0.5)
-stock1_button = button.Button(80, 380, stock1_img, 1)
-stock2_button = button.Button(80, 500, stock2_img, 1)
-stock3_button = button.Button(80, 620, stock3_img, 1)
+start_button = button.Button(650, 500, startbutton_img, 0.5)#
+howto_button = button.Button(650, 600, howtobutton_img, 0.5)#
+stock1_button = button.Button(30, 240, stock1_img, 1)#
+stock2_button = button.Button(30, 425, stock2_img, 1)#
+stock3_button = button.Button(30, 610, stock3_img, 1)#
 
-nextday_button = button.Button(1100, 650, nextday_img, 1)
-sell_button = button.Button(1125, 570, sell_img, 1)
-buy_button = button.Button(1125, 440, buy_img, 1)
-decide_button = button.Button(350, 600-130, decidebuy_img, 0.7-0.2)
+nextday_button = button.Button(1150, 650, nextday_img, 1)#
+sell_button = button.Button(1150, 540, sell_img, 1)#
+buy_button = button.Button(1150, 430, buy_img, 1)#
+decide_button = button.Button(330, 540, decidebuy_img, 0.7)#
 
-sellten_button = button.Button(320, 350-130, ten_img, 1)
-sellthr_button = button.Button(540, 350-130, thirty_img, 1)
-sellfif_button = button.Button(760, 350-130, fifty_img, 1)
-sellhund_button = button.Button(980, 350-130, hundred_img, 1)
-tradeall_button = button.Button(650, 470-130, tradeall_img, 1)
+sellten_button = button.Button(325, 330, ten_img, 0.7)#
+sellthr_button = button.Button(545, 330, thirty_img, 0.7)#
+sellfif_button = button.Button(765, 330, fifty_img, 0.7)#
+sellhund_button = button.Button(985, 330, hundred_img, 0.7)#
+tradeall_button = button.Button(640, 420, tradeall_img, 0.8)#
 
-playagain_button = button.Button(400, 550, playagain_img, 1)
-exitgame_button = button.Button(900, 550, exitgame_img, 1)
+playagain_button = button.Button(300, 550, playagain_img, 1)
+exitgame_button = button.Button(800, 550, exitgame_img, 1)
 
 # game 화면 실행 변수들
 main_menu = True
@@ -152,8 +149,7 @@ def imgdraw(img, w, h, x, y, scale):
 def showinfo(stock, hold):
     updownrate = str(
         int(((stock.prices[nowdate - 1]) / (stock.prices[nowdate - 6]) - 1) * 100))
-    imgdraw(show_img, 830, 570, 600, 200, 1)
-    imgdraw(holdstock_img, 280, 180, 1125, 230, 1)
+    imgdraw(holdstock_img, 280, 180, 1150, 240, 1)
     Writetext((str(str(hold) + '주')), 50, BLACK, 1200, 300)
     Writetext((str('주가: ' + str(int(stock.price)) + '원')), 50, BLACK, 640, 600)
     if float(updownrate) >= 0:
@@ -191,19 +187,20 @@ def savegraph(stock):
 
 #주식창 열때 설정
 def menuclick(stock):
-    global stockimg
+    #global stockimg
     plt.cla()
     savegraph(stock)
-    stockimg = pg.image.load('image/figures/figure.png')
+    #stockimg = pg.image.load('image/figures/figure.png')
+    return pg.image.load('image/figures/figure.png')
 
 #주식 사거나 팔때 창 설정
 def showtrade(volume):
     global game_menu, cancel_button
     game_menu = False
-    imgdraw(showbuy_img, 900, 600-100, 300, 200-150, 1)
-    imgdraw(tradevolume_img, 575, 115, 480, 200-130, 1)
-    Writetext(volume, 50, WHITE, 570, 220-130)
-    cancel_button = button.Button(850+60, 600-130, cancelbutton_img, 0.7-0.2)
+    imgdraw(showbuy_img, 900, 600, 300, 200-150, 1)
+    imgdraw(tradevolume_img, 575, 115, 470, 180, 1)
+    Writetext(volume, 50, WHITE, 520, 180)
+    cancel_button = button.Button(850, 540, cancelbutton_img, 0.7)
 
 def howmuch(volume):
     if sellten_button.draw(screen) == True:
@@ -233,9 +230,10 @@ def howmuchsell(sellvolume, hold):
 def buydecide(price,buyvolume,hold):
     global game_menu,seed
     game_menu=False
+    t=0
     if decide_button.draw(screen) == True:
         if seed <= price * buyvolume:
-            buyvolume = 0        
+            buyvolume = 0
             imgdraw(buyalarm1_img, 400, 150, 480, 600, 1)
             fail_sound.play(0)
 
@@ -326,13 +324,12 @@ while run:
         imgdraw(seedicon_img, 400, 100, 5, 60, 1)
         Writetext(str(int(seed)), 50, WHITE, 170, 70)
         Writetext(('수익률: '+ str(earning_rate) + '%'), 50, WHITE, 500, 70)
-        imgdraw(goal_img, 400, 100, 1025, 60, 1)
-        Writetext(str(goal), 50, WHITE, 1200, 70)
-        imgdraw(stockbox_img, 500, 570, 70, 200, 1)
-        cancel_button = button.Button(1180, 700, cancelbutton_img, 0.5)
+        imgdraw(goal_img, 450, 100, 1025, 60, 1)
+        Writetext(str(goal), 50, WHITE, 1220, 73)
+        cancel_button = button.Button(720, 720, cancelbutton_img, 0.5)
 
 # 다음날로 가는 버튼
-        if (nextday_button.draw(screen) == True) and (stock_menu1 == False) and (stock_menu2 == False) and (stock_menu3 == False):
+        if (nextday_button.draw(screen) == True):
             print('NEXT DAY')
             menu_sound.play(0)
             nextday()
@@ -341,10 +338,11 @@ while run:
         if stock1_button.draw(screen) == True:
             menu_sound.play(0)                
             print("stock1")
-            menuclick(stock1)
+            stockimg=menuclick(stock1)
             stock2_menu = False
             stock3_menu = False
             stock_menu1 = True
+            game_menu=True
 
         if stock_menu1 == True:
             showinfo(stock1, hold1)
@@ -372,10 +370,10 @@ while run:
         if stock2_button.draw(screen) == True:
             menu_sound.play(0)
             print("stock2")
-            menuclick(stock1)
+            stockimg=menuclick(stock2)
             stock_menu1 = False
             stock_menu3 = False
-            stock_menu2 = stock2
+            stock_menu2 = True
 
         if stock_menu2 == True:
             showinfo(stock2, hold2)
@@ -402,10 +400,10 @@ while run:
         if stock3_button.draw(screen) == True:
             menu_sound.play(0)        
             print("stock3")
-            menuclick()
+            stockimg=menuclick(stock3)
             stock_menu1 = False
             stock_menu2 = False
-            stock_menu3 = stock3
+            stock_menu3 = True
 
         if stock_menu3 == True:
             showinfo(stock3, hold3)
@@ -511,6 +509,7 @@ while run:
 
 # 게임 종료
     if seed >= goal:
+        gameclear_sound.play(0)
         screen.fill(BLACK)
         game_menu = False
         howto_menu = False
@@ -525,7 +524,6 @@ while run:
         sell_menu3 = False
         gameclear_menu = True
         if gameclear_menu == True:
-            gameclear_sound.play(0)
             imgdraw(gameclear_img, 1500, 800, 0, 0, 1)
             Writetext((str(int(seed)) + '원'), 60, BLACK, 700, 385)
             if playagain_button.draw(screen) == True:
@@ -569,6 +567,7 @@ while run:
                 pg.quit()
 
     elif seed <= 0:
+        gameover_sound.play(0)
         screen.fill(BLACK)
         game_menu = False
         howto_menu = False
@@ -584,7 +583,7 @@ while run:
         gameover_menu = True
         if gameover_menu == True:
             imgdraw(gameover_img, 1500, 800, 0, 0, 1)
-            gameover_sound.play(0)
+
             if playagain_button.draw(screen) == True:
                 print('play again')
                 seed = 1000000
