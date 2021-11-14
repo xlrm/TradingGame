@@ -11,6 +11,7 @@ pg.init()
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
+BLUE = (0, 0, 255)
 size = [1500, 800]
 screen = pg.display.set_mode(size)
 clock = pg.time.Clock()
@@ -28,6 +29,15 @@ fail_sound = pg.mixer.Sound("sound/매수매매실패효과음.mp3")
 success_sound = pg.mixer.Sound("sound/매수매매성공효과음.mp3")
 gameclear_sound = pg.mixer.Sound("sound/게임승리효과음.mp3")
 gameover_sound = pg.mixer.Sound("sound/게임실패효과음.mp3")
+
+bgm.set_volume(0.1)
+main_sound.set_volume(0.1)
+menu_sound.set_volume(0.1)
+fail_sound.set_volume(0.1)
+success_sound.set_volume(0.1)
+gameclear_sound.set_volume(0.1)
+gameover_sound.set_volume(0.1)
+
 
 # game 화면 실행 변수들
 main_menu = True
@@ -104,10 +114,15 @@ def showinfo(stock):
         int(((stock.prices[nowdate - 1]) / (stock.prices[nowdate - 6]) - 1) * 100)
     )
     Writetext((str("주가: " + str(int(stock.price)) + "원")), 50, BLACK, 640, 600)
-    if float(updownrate) >= 0:
-        Writetext(("(전일대비 +" + updownrate + "%)"), 50, BLACK, 640, 650)
+    if float(updownrate) == 0:
+        Writetext(("(전일대비"), 40, BLACK, 640, 650)
+        Writetext((" +" + updownrate + "%)"), 40, WHITE, 800, 650)
+    elif float(updownrate) > 0:
+        Writetext(("(전일대비"), 40, BLACK, 640, 650)
+        Writetext((" +" + updownrate + "%)"), 40, RED, 800, 650)
     else:
-        Writetext(("(전일대비 " + updownrate + "%)"), 50, BLACK, 640, 650)
+        Writetext(("(전일대비 "), 40, BLACK, 640, 650)
+        Writetext((updownrate + "%)"), 40, BLUE, 820, 650)
 
 
 def appenddate():
@@ -121,7 +136,7 @@ def plusdate():
 
 def nextday():
     global seed, asset, earning_rate
-    for i in range(5):
+    for i in range(2):
         plusdate()
         appenddate()
         stock1.fluctuation()
@@ -154,30 +169,41 @@ def menuclick(stock, stockname):
 def showtrade(volume):
     global game_menu, cancel_button
     game_menu = False
-    imgdraw(imagedic["showbuy_img"], 900, 600, 300, 200 - 150, 1)
-    imgdraw(imagedic["tradevolume_img"], 575, 115, 470, 180, 1)
-    Writetext(volume, 50, WHITE, 510, 200)
-    cancel_button = button.Button(850, 540, imagedic["cancelbutton_img"], 0.7)
+    imgdraw(imagedic["showbuy_img"], 900, 450, 300, 160, 1)
+    imgdraw(imagedic["tradevolume_img"], 300, 85, 600, 210, 1)
+    Writetext(volume, 50, WHITE, 620, 215)
+    cancel_button = button.Button(850, 510, imagedic["cancelbutton_img"], 0.7)
 
 
-def howmuch(volume):
-    if buttondic["sellten_button"].draw(screen) == True:
+def howmuchbuy(volume):
+    if buttondic["buyten_button"].draw(screen) == True:
         menu_sound.play(0)
         volume += 10
-    if buttondic["sellthr_button"].draw(screen) == True:
+    if buttondic["buythr_button"].draw(screen) == True:
         menu_sound.play(0)
         volume += 30
-    if buttondic["sellfif_button"].draw(screen) == True:
+    if buttondic["buyfif_button"].draw(screen) == True:
         menu_sound.play(0)
         volume += 50
-    if buttondic["sellhund_button"].draw(screen) == True:
+    if buttondic["buyhund_button"].draw(screen) == True:
         menu_sound.play(0)
         volume += 100
     return volume
 
 
 def howmuchsell(sellvolume, hold):
-    sellvolume = howmuch(sellvolume)
+    if buttondic["sellten_button"].draw(screen) == True:
+        menu_sound.play(0)
+        sellvolume += 10
+    if buttondic["sellthr_button"].draw(screen) == True:
+        menu_sound.play(0)
+        sellvolume += 30
+    if buttondic["sellfif_button"].draw(screen) == True:
+        menu_sound.play(0)
+        sellvolume += 50
+    if buttondic["sellhund_button"].draw(screen) == True:
+        menu_sound.play(0)
+        sellvolume += 100
     if buttondic["tradeall_button"].draw(screen) == True:
         sellvolume = hold
     return sellvolume
@@ -189,18 +215,18 @@ def buydecide(price, buyvolume, hold):
     if buttondic["decidebuy_button"].draw(screen) == True:
         if seed <= price * buyvolume:
             buyvolume = 0
-            imgdraw(imagedic["buyalarm1_img"], 400, 150, 580, 660, 0.8)
+            imgdraw(imagedic["buyalarm1_img"], 400, 150, 580, 640, 0.8)
             fail_sound.play(0)
 
         elif buyvolume == 0:
-            imgdraw(imagedic["buyalarm2_img"], 400, 150, 580, 660, 0.8)
+            imgdraw(imagedic["buyalarm2_img"], 400, 150, 580, 640, 0.8)
             fail_sound.play(0)
         else:
             seed -= price * buyvolume
             hold += buyvolume
             game_menu = True
             success_sound.play(0)
-            imgdraw(imagedic["successalarm_img"], 400, 150, 580, 660, 0.8)
+            imgdraw(imagedic["successalarm_img"], 400, 150, 580, 640, 0.8)
         buyvolume = 0
     return [buyvolume, hold]
 
@@ -210,18 +236,18 @@ def selldecide(price, sellvolume, hold):
     game_menu = False
     if buttondic["decidesell_button"].draw(screen) == True:
         if hold < sellvolume:
-            imgdraw(imagedic["sellalarm1_img"], 400, 150, 580, 660, 0.8)
+            imgdraw(imagedic["sellalarm1_img"], 400, 150, 580, 640, 0.8)
             fail_sound.play(0)
 
         elif sellvolume == 0:
             fail_sound.play(0)
-            imgdraw(imagedic["sellalarm2_img"], 400, 150, 580, 660, 0.8)
+            imgdraw(imagedic["sellalarm2_img"], 400, 150, 580, 640, 0.8)
 
         else:
             seed += price * sellvolume
             hold -= sellvolume
             game_menu = True
-            imgdraw(imagedic["successalarm_img"], 400, 150, 580, 660, 0.8)
+            imgdraw(imagedic["successalarm_img"], 400, 150, 580, 640, 0.8)
             success_sound.play(0)
         sellvolume = 0
     return [sellvolume, hold]
@@ -236,7 +262,6 @@ for i in range(10):
     stock3.fluctuation()
 
 # 배경음악 설정
-bgm.set_volume(0.25)
 bgm.play(-1)
 
 while run:
@@ -279,14 +304,19 @@ while run:
             or sell_menu3
         ) == False:
             imgdraw(imagedic["gamebg_img"], 1500, 800, 0, 0, 1)
-        Writetext(("수익률: " + str(earning_rate) + "%"), 50, WHITE, 500, 70)
-        imgdraw(imagedic["seedicon_img"], 400, 100, 5, 60, 1)
-        if seed <= 50000:
-            Writetext(str(int(seed)), 50, RED, 170, 70)
+        if earning_rate == 0:
+            Writetext(("수익률: " + str(earning_rate) + "%"), 50, WHITE, 610, 80)
+        elif earning_rate > 0:
+            Writetext(("수익률: " + str(earning_rate) + "%"), 50, RED, 610, 80)
         else:
-            Writetext(str(int(seed)), 50, WHITE, 170, 70)
-        imgdraw(imagedic["goal_img"], 450, 100, 1025, 60, 1)
-        Writetext(str(goal), 50, WHITE, 1220, 73)
+            Writetext(("수익률: " + str(earning_rate) + "%"), 50, BLUE, 610, 80)
+        imgdraw(imagedic["seedicon_img"], 450, 100, 20, 70, 1)
+        if seed <= 50000:
+            Writetext(str(int(seed)), 50, RED, 170, 83)
+        else:
+            Writetext(str(int(seed)), 50, WHITE, 170, 83)
+        imgdraw(imagedic["goal_img"], 450, 100, 1025, 70, 1)
+        Writetext(str(goal), 50, WHITE, 1230, 83)
         cancel_button = button.Button(720, 720, imagedic["cancelbutton_img"], 0.5)
 
         # 다음날로 가는 버튼
@@ -294,7 +324,7 @@ while run:
         # 메뉴 1 클릭
         if buttondic["stock1_button"].draw(screen) == True:
             menu_sound.play(0)
-            stockimg = menuclick(stock1, 'BSK Foods')
+            stockimg = menuclick(stock1, "BSK Foods")
             stock_menu2 = False
             stock_menu3 = False
             stock_menu1 = True
@@ -303,7 +333,7 @@ while run:
             showhold(hold1)
             if buttondic["nextday_button"].draw(screen) == True:
                 nextday()
-                stockimg = menuclick(stock1, 'BSK Foods ')
+                stockimg = menuclick(stock1, "BSK Foods ")
                 imgdraw(stockimg, 640, 480, 650, 250, 0.7)
                 menu_sound.play(0)
             if (buy_menu1 or sell_menu1) == False:
@@ -328,7 +358,7 @@ while run:
         # 메뉴 2 클릭
         if buttondic["stock2_button"].draw(screen) == True:
             menu_sound.play(0)
-            stockimg = menuclick(stock2, 'JH Entertainment')
+            stockimg = menuclick(stock2, "JH Entertainment")
             stock_menu1 = False
             stock_menu3 = False
             stock_menu2 = True
@@ -337,7 +367,7 @@ while run:
             showhold(hold2)
             if buttondic["nextday_button"].draw(screen) == True:
                 nextday()
-                stockimg = menuclick(stock2, 'JH Entertainment')
+                stockimg = menuclick(stock2, "JH Entertainment")
                 imgdraw(stockimg, 640, 480, 650, 250, 0.7)
                 menu_sound.play(0)
             if (buy_menu2 or sell_menu2) == False:
@@ -363,7 +393,7 @@ while run:
         # 메뉴 3 클릭
         if buttondic["stock3_button"].draw(screen) == True:
             menu_sound.play(0)
-            stockimg = menuclick(stock3, 'DK Electronics')
+            stockimg = menuclick(stock3, "DK Electronics")
             stock_menu1 = False
             stock_menu2 = False
             stock_menu3 = True
@@ -372,7 +402,7 @@ while run:
             showhold(hold3)
             if buttondic["nextday_button"].draw(screen) == True:
                 nextday()
-                stockimg = menuclick(stock1, 'DK Electronics')
+                stockimg = menuclick(stock1, "DK Electronics")
                 imgdraw(stockimg, 640, 480, 650, 250, 0.7)
                 menu_sound.play(0)
             if (buy_menu3 or sell_menu3) == False:
@@ -397,7 +427,7 @@ while run:
     # 주식1 매수창
     if buy_menu1 == True:
         showtrade(buyvolume1)
-        buyvolume1 = howmuch(buyvolume1)
+        buyvolume1 = howmuchbuy(buyvolume1)
         l = buydecide(stock1.price, buyvolume1, hold1)
         buyvolume1 = l[0]
         hold1 = l[1]
@@ -411,7 +441,7 @@ while run:
     # 주식2 매수창
     if buy_menu2 == True:
         showtrade(buyvolume2)
-        buyvolume2 = howmuch(buyvolume2)
+        buyvolume2 = howmuchbuy(buyvolume2)
         l = buydecide(stock2.price, buyvolume2, hold2)
         buyvolume2 = l[0]
         hold2 = l[1]
@@ -425,7 +455,7 @@ while run:
     # 주식3 매수창
     if buy_menu3 == True:
         showtrade(buyvolume3)
-        buyvolume3 = howmuch(buyvolume3)
+        buyvolume3 = howmuchbuy(buyvolume3)
         l = buydecide(stock3.price, buyvolume3, hold3)
         buyvolume3 = l[0]
         hold3 = l[1]
@@ -494,7 +524,9 @@ while run:
         gameclear_menu = True
         imgdraw(imagedic["gameclear_img"], 1500, 800, 0, 0, 1)
     if gameclear_menu == True:
-        Writetext((str(int(asset)) + "원 (+" + str(earning_rate) + "%)"), 80, BLACK, 585, 355)
+        Writetext(
+            (str(int(asset)) + "원 (+" + str(earning_rate) + "%)"), 80, BLACK, 585, 355
+        )
         seed = 1000000
         if buttondic["playagain_button"].draw(screen) == True:
             gameclear_sound.stop()

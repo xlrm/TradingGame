@@ -30,7 +30,6 @@ class ImageList:
         self.exitgame_img = pg.image.load("image/button/게임종료.png")
         self.seedicon_img = pg.image.load("image/etc/시드머니아이콘.png")
         self.goal_img = pg.image.load("image/etc/목표자산.png")
-        self.seedicon_img = pg.image.load("image/etc/시드머니아이콘.png")
         self.stock1_img = pg.image.load("image/etc/주식1.png")
         self.stock2_img = pg.image.load("image/etc/주식2.png")
         self.stock3_img = pg.image.load("image/etc/주식3.png")
@@ -94,15 +93,19 @@ class ImageList:
         self.nextday_button = button.Button(1150, 650, IMAGES["nextday_img"], 1)
         self.sell_button = button.Button(1150, 540, IMAGES["sell_img"], 1)
         self.buy_button = button.Button(1150, 430, IMAGES["buy_img"], 1)
-        self.decidebuy_button = button.Button(330, 540, IMAGES["decidebuy_img"], 0.7)
-        self.decidesell_button = button.Button(330, 540, IMAGES["decidesell_img"], 0.7)
-        self.sellten_button = button.Button(325, 330, IMAGES["ten_img"], 0.7)
-        self.sellthr_button = button.Button(545, 330, IMAGES["thirty_img"], 0.7)
-        self.sellfif_button = button.Button(765, 330, IMAGES["fifty_img"], 0.7)
-        self.sellhund_button = button.Button(985, 330, IMAGES["hundred_img"], 0.7)
-        self.tradeall_button = button.Button(640, 420, IMAGES["tradeall_img"], 0.8)
-        self.playagain_button = button.Button(300, 630, IMAGES["playagain_img"], 1)
-        self.exitgame_button = button.Button(800, 630, IMAGES["exitgame_img"], 1)
+        self.decidebuy_button = button.Button(330, 510, IMAGES["decidebuy_img"], 0.7)
+        self.decidesell_button = button.Button(330, 510, IMAGES["decidesell_img"], 0.7)
+        self.sellten_button = button.Button(325, 325, IMAGES["ten_img"], 0.7)
+        self.sellthr_button = button.Button(545, 325, IMAGES["thirty_img"], 0.7)
+        self.sellfif_button = button.Button(765, 325, IMAGES["fifty_img"], 0.7)
+        self.sellhund_button = button.Button(985, 325, IMAGES["hundred_img"], 0.7)
+        self.buyten_button = button.Button(325, 355, IMAGES["ten_img"], 0.7)
+        self.buythr_button = button.Button(545, 355, IMAGES["thirty_img"], 0.7)
+        self.buyfif_button = button.Button(765, 355, IMAGES["fifty_img"], 0.7)
+        self.buyhund_button = button.Button(985, 355, IMAGES["hundred_img"], 0.7)
+        self.tradeall_button = button.Button(657, 420, IMAGES["tradeall_img"], 0.7)
+        self.playagain_button = button.Button(300, 630, IMAGES["playagain_img"], 0.8)
+        self.exitgame_button = button.Button(800, 630, IMAGES["exitgame_img"], 0.8)
         dic = {
             "start_button": self.start_button,
             "howto_button": self.howto_button,
@@ -118,6 +121,10 @@ class ImageList:
             "sellthr_button": self.sellthr_button,
             "sellfif_button": self.sellfif_button,
             "sellhund_button": self.sellhund_button,
+            "buyten_button": self.buyten_button,
+            "buythr_button": self.buythr_button,
+            "buyfif_button": self.buyfif_button,
+            "buyhund_button": self.buyhund_button,
             "tradeall_button": self.tradeall_button,
             "playagain_button": self.playagain_button,
             "exitgame_button": self.exitgame_button,
