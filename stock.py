@@ -1,10 +1,12 @@
 import numpy as np
 
-class Stock():
+
+class Stock:
     def __init__(self, issue):
         self.issue = issue
         self.price = issue
         self.prices = [issue]
+
     def fluctuation(self):
         coeff = np.random.rand()
         sign = np.random.randint(2)
