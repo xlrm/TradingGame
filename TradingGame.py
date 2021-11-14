@@ -137,15 +137,16 @@ def nextday():
     earning_rate = int(((asset / 1000000) - 1) * 100)
 
 
-def savegraph(stock):
+def savegraph(stock, stockname):
     plt.plot((date), (stock.prices))
+    plt.title(stockname)
     plt.savefig("image/figures/figure.png")
 
 
 # 주식창 열때 설정
-def menuclick(stock):
+def menuclick(stock, stockname):
     plt.cla()
-    savegraph(stock)
+    savegraph(stock, stockname)
     return pg.image.load("image/figures/figure.png")
 
 
@@ -289,20 +290,22 @@ while run:
         cancel_button = button.Button(720, 720, imagedic["cancelbutton_img"], 0.5)
 
         # 다음날로 가는 버튼
-        if buttondic["nextday_button"].draw(screen) == True:
-            menu_sound.play(0)
-            nextday()
 
         # 메뉴 1 클릭
         if buttondic["stock1_button"].draw(screen) == True:
             menu_sound.play(0)
-            stockimg = menuclick(stock1)
+            stockimg = menuclick(stock1, 'BSK Foods')
             stock_menu2 = False
             stock_menu3 = False
             stock_menu1 = True
 
         if stock_menu1 == True:
             showhold(hold1)
+            if buttondic["nextday_button"].draw(screen) == True:
+                nextday()
+                stockimg = menuclick(stock1, 'BSK Foods ')
+                imgdraw(stockimg, 640, 480, 650, 250, 0.7)
+                menu_sound.play(0)
             if (buy_menu1 or sell_menu1) == False:
                 showinfo(stock1)
                 if cancel_button.draw(screen) == True:
@@ -312,7 +315,7 @@ while run:
                     else:
                         stock_menu1 = False
                         plt.cla()
-            imgdraw(stockimg, 640, 480, 650, 250, 0.7)  # 크기나 위치 수정 필요
+            imgdraw(stockimg, 640, 480, 650, 250, 0.7)
             if buttondic["sell_button"].draw(screen) == True:
                 menu_sound.play(0)
 
@@ -325,13 +328,18 @@ while run:
         # 메뉴 2 클릭
         if buttondic["stock2_button"].draw(screen) == True:
             menu_sound.play(0)
-            stockimg = menuclick(stock2)
+            stockimg = menuclick(stock2, 'JH Entertainment')
             stock_menu1 = False
             stock_menu3 = False
             stock_menu2 = True
 
         if stock_menu2 == True:
             showhold(hold2)
+            if buttondic["nextday_button"].draw(screen) == True:
+                nextday()
+                stockimg = menuclick(stock2, 'JH Entertainment')
+                imgdraw(stockimg, 640, 480, 650, 250, 0.7)
+                menu_sound.play(0)
             if (buy_menu2 or sell_menu2) == False:
                 showinfo(stock2)
                 if cancel_button.draw(screen) == True:
@@ -355,13 +363,18 @@ while run:
         # 메뉴 3 클릭
         if buttondic["stock3_button"].draw(screen) == True:
             menu_sound.play(0)
-            stockimg = menuclick(stock3)
+            stockimg = menuclick(stock3, 'DK Electronics')
             stock_menu1 = False
             stock_menu2 = False
             stock_menu3 = True
 
         if stock_menu3 == True:
             showhold(hold3)
+            if buttondic["nextday_button"].draw(screen) == True:
+                nextday()
+                stockimg = menuclick(stock1, 'DK Electronics')
+                imgdraw(stockimg, 640, 480, 650, 250, 0.7)
+                menu_sound.play(0)
             if (buy_menu3 or sell_menu3) == False:
                 showinfo(stock3)
                 if cancel_button.draw(screen) == True:
