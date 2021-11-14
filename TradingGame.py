@@ -366,10 +366,10 @@ while run:
                 showinfo(stock3)
                 if cancel_button.draw(screen) == True:
                     menu_sound.play(0)
-                    if buy_menu2 == True:
+                    if buy_menu3 == True:
                         False
                     else:
-                        stock_menu2 = False
+                        stock_menu3 = False
                         plt.cla()
             imgdraw(stockimg, 640, 480, 650, 250, 0.7)
 
